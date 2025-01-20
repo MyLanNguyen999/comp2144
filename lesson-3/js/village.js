@@ -79,10 +79,10 @@ const createScene = async function() {
 
     // STEP 4: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
 
-    // const sound = new BABYLON.Sound("birds","./media/chirping-birds-ambience-217410.mp3", scene, null {
-    //     loop: true,
-    //     autoplay: true
-    // });    
+    const sound = new BABYLON.Sound("birds","./chirping-birds-ambience-217410.mp3", scene, null, {
+        loop: true,
+        autoplay: true
+    });    
 
     // STEP 15a: Set the above createScene() function to async (important, or this will not work)
     // STEP 15b: Create the xrHelper to allow the visitor to choose WebXR if they are able and they'd like
