@@ -132,10 +132,13 @@ const createScene = async function() {
     });
     
     // STEP 15a: Let's go get a 3D model of a tree (https://free3d.com/3d-model/low_poly_tree-816203.html by kipris)
-    // STEP 15b: Unzip the archive, then look at all the file formats - we will use the popular .obj file format and attempt to convert it to a .glb file using Convert3D (https://convert3d.org/)
-    // STEP 15c: Note that the colour and material information has been dumped - let's try the .dae file (Collada - an open source XML 3D model format) - download the .glb file to a /media folder locally
-    // STEP 15d: Drop the tree into the scene using the ImportMeshAsync method (note that the tree is very, very tiny)
 
+    // STEP 15b: Unzip the archive, then look at all the file formats - we will use the popular .obj file format and attempt to convert it to a .glb file using Convert3D (https://convert3d.org/)
+
+    // STEP 15c: Note that the colour and material information has been dumped - let's try the .dae file (Collada - an open source XML 3D model format) - download the .glb file to a /media folder locally
+
+    // STEP 15d: Drop the tree into the scene using the ImportMeshAsync method (note that the tree is very, very tiny)
+    
     
     // STEP 16a: Scale the mesh object x, y, and z by 150 times
     // STEP 16b: Move it over a bit with -2 for the x position
