@@ -122,7 +122,7 @@ const createScene = async function() {
     
     //* STEP 14b: How about a third house?
     let house3 = house.createInstance("house3");
-    house3.position = new BABYLON.Vector3(-1, 0, 1);
+    house3.position = new BABYLON.Vector3(-3, 0, 1);
     house3.rotation.y = BABYLON.Tools.ToRadians(-45);
 
     //* STEP 4: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
@@ -138,9 +138,17 @@ const createScene = async function() {
     // STEP 15c: Note that the colour and material information has been dumped - let's try the .dae file (Collada - an open source XML 3D model format) - download the .glb file to a /media folder locally
 
     // STEP 15d: Drop the tree into the scene using the ImportMeshAsync method (note that the tree is very, very tiny)
-    
+    // @ have to preview this with LIVE SERVER to see the tree
+    const tree = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "Lowpoly_tree_sample.glb").then((result) => {
+        result.meshes[0].position.x = -2.5;
+        result.meshes[0].position.y = 0;
+        result.meshes[0].position.z = -2.5;
+        result.meshes[0].scaling = new BABYLON.Vector3(150, 150, 150);
+    });
     
     // STEP 16a: Scale the mesh object x, y, and z by 150 times
+
+
     // STEP 16b: Move it over a bit with -2 for the x position
 
     // STEP 17a: Set the above createScene() function to async (important, or this will not work)
