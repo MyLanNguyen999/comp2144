@@ -63,10 +63,21 @@ const createScene = async function() {
     });
     // STEP 8b: Scale, rotate, and position the new mesh object
     roof.scaling.x = 0.75;
-    roof.rotation.z = Math.PI / 2;
-    // START HERE ON JANUARY 27, 2025
+    // roof.rotation.z = Math.PI / 2;
+
+    //* if using degrees as unit, need to use conversion tool below to convert to radians unit
+    roof.rotation.z = BABYLON.Tools.ToRadians(90);
+    roof.rotation.y = BABYLON.Tools.ToRadians(-45);
+    roof.position.y = 2;
+    roof.position.x = 1;
+    roof.position.z = 2;
+
+    //* START HERE ON JANUARY 27, 2025
     
     // STEP 10: Add a texture to the roof (https://assets.babylonjs.com/environments/roof.jpg)
+    const roofMat = new BABYLON.StandardMaterial("roofMat");
+    roofMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/roof.jpg", scene);
+    roof.material = roofMat;
 
     // STEP 13a: Let's combine the box and the roof meshes into one mesh called 'house'
     
