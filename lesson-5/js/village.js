@@ -82,20 +82,41 @@ const createScene = async function() {
     });
 
     // STEP 1: Build a simple 1x1 cube car, with a standard material and a color
-    
+    const car = BABYLON.MeshBuilder.CreateBox("car");
+    const carMat = new BABYLON.StandardMaterial("carMat");
+    carMat.diffuseColor = new BABYLON.Color3(1, 0, 1);
+    car.material = carMat;
 
     // STEP 2a: The local coordinates origin of the cube car is the reference point for scaling and positioning it within the scene - move it up 0.5 so that it sits on the ground
+    car.position = new BABYLON.Vector3(1, 0.5, -0.75);
     
     // STEP 2b: Move it out of the way so that the 0,0,0 point in the scene is visible for the next mesh we will import
+
 
     // STEP 3a: Go to TinkerCAD and build a wheel (radius: 2, wall thickness: 1, sides: 12, bevel: 0, bevel segments: 0)
     // STEP 3b: Rotate the wheel 90 degrees and position it at 0,0,0 in the workspace
     // STEP 3c: Export the wheel as a .glb file and put it in the meshes folder
     
     // STEP 4a: Drop the wheel into the scene using the ImportMeshAsync method
-    
+    const wheel1 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "wheel1.glb").then((result) => {
+        const wheelMesh = result.meshes[0];
+
+        // @ create a border around the object to see the object clearer
+        const wheelBounds = result.meshes[1];
+        wheelBounds.showBoundingBox = true;
+
+        wheelMesh.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+        // wheelMesh.rotation.y = BABYLON.Tools.ToRadians(90);
+        wheelMesh.parent = car;
+        wheelMesh.position = new BABYLON.Vector3(0, -0.4, -0.6);
+
+    }).catch((error) => {
+        console.log("Error loading mesh: " + error);
+        return null;
+    });
 
     // STEP 4b: The wheel is 4 units radius, which is too big again - so scale it down to 1/10 the size above
+    
     // STEP 4c: Add a bounding box to the wheel to see the dimensions of the mesh (this can be accessed via the second mesh in the result.meshes array, result.meshes[1])
 
     // STEP 5a: Now we need to be able to attach the wheel to the car...so make the car the parent of the wheel (inside the promise above)
@@ -103,11 +124,27 @@ const createScene = async function() {
 
     // STEP6a: Go back to TinkerCAD and export another wheel, but change the color
     // STEP6b: Copy the code in STEP 4 and paste it below, change the the const name and filename to match the new wheel
+    const wheel2 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "wheel2.glb").then((result) => {
+        const wheelMesh = result.meshes[0];
+
+        // @ create a border around the object to see the object clearer
+        const wheelBounds = result.meshes[1];
+        wheelBounds.showBoundingBox = true;
+
+        wheelMesh.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+        // wheelMesh.rotation.y = BABYLON.Tools.ToRadians(90);
+        wheelMesh.parent = car;
+        wheelMesh.position = new BABYLON.Vector3(0, -0.4, 0.6);
+
+    }).catch((error) => {
+        console.log("Error loading mesh: " + error);
+        return null;
+    });
     // STEP6c: Change the position of the wheel so that it is on the other side of the car
     
 
     // STEP 7: The car's wheels are stuck in the ground - we need to lift the car up so that it sits on the ground
-    
+    car.position.y = 0.6;
 
     // STEP 8: Create a new animation object
     
