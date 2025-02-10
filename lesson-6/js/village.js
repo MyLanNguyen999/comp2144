@@ -13,7 +13,7 @@ const createScene = async function() {
     // Add a camera and allow it to control the canvas
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
     // STEP 11: Restrict camera from going below the ground
-    
+    camera.attachControl(canvas, true);
 
 
     /* LIGHTING
@@ -36,20 +36,24 @@ const createScene = async function() {
     /* GROUND
     ---------------------------------------------------------------------------------------------------- */
     // STEP 6a: Comment out the below code for the simple square ground
-    const ground = BABYLON.MeshBuilder.CreateGround("ground", {
-        width: 10,
-        height: 10
-    });
-    const groundMat = new BABYLON.StandardMaterial("groundMat");
-    groundMat.diffuseColor = new BABYLON.Color3(0.33, 0.42, 0.18);
-    ground.material = groundMat;
+    // const ground = BABYLON.MeshBuilder.CreateGround("ground", {
+    //     width: 10,
+    //     height: 10
+    // });
+    // const groundMat = new BABYLON.StandardMaterial("groundMat");
+    // groundMat.diffuseColor = new BABYLON.Color3(0.33, 0.42, 0.18);
+    // ground.material = groundMat;
+
 
     // STEP 6b: Create large ground texture material using Babylon.js library (https://assets.babylonjs.com/environments/valleygrass.png)
+    const largeGroundMat = new BABYLON.StandardMaterial("largeGroundMat");
+    largeGroundMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/valleygrass.png");
     
     // STEP 6c: Build a 3D ground surface based on a heightmap (https://assets.babylonjs.com/environments/villageheightmap.png)
-    
+    const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "https://assets.babylonjs.com/environments/villageheightmap.png", {width: 150, height: 150, subdivisions: 20, minHeight: 0, maxHeight: 20});
     // STEP 6d: Set the largeGround material property to be the largeGroundMat we created above
-    
+    largeGround.material = largeGroundMat; 
+
     
     // STEP 8d: Instruct the ground mesh to receive shadows
     
@@ -194,25 +198,38 @@ const createScene = async function() {
     /* ANIMATION
     ---------------------------------------------------------------------------------------------------- */
     // STEP 1: Create a new animation object (at 30 FPS)
-    
+    const animCar = new BABYLON.Animation("carAnimation", "position.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
     // STEP 2a: Create an array for keyframes
+    const carKeys = [];
     
     // STEP 2b: Add the first keyframe - at key 0, the value of position.x is -3
+    carKeys.push({
+        frame: 0,
+        value: -3
+    });
     
     // STEP 2c: at animation key 60, (after 2 seconds since animation FPS = 30) the value of position.x is 3
+    carKeys.push({
+        frame: 60,
+        value: 3
+    });
     
     // STEP 2d: At animation key 120, the value of position.x is -3 again
-    
+    carKeys.push({
+        frame: 120,
+        value: -3
+    });
 
     // STEP 3: Attach the animation keys to the animation object
-    
+    animCar.setKeys(carKeys);
 
     // STEP 4: Add the animation object to the car's animations array
-    
+    car.animations = [];
+    car.animations.push(animCar);
 
     // STEP 5: Attach the animation to the scene
-    
+    scene.beginAnimation(car, 0, 120, true);
 
     /* ENABLE IMMERSIVE VR
     ---------------------------------------------------------------------------------------------------- */
