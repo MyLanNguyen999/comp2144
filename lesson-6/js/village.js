@@ -13,6 +13,7 @@ const createScene = async function() {
     // Add a camera and allow it to control the canvas
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
     // STEP 11: Restrict camera from going below the ground
+    camera.upperBetaLimit = Math.PI / 2 - 0.05;
     camera.attachControl(canvas, true);
 
 
@@ -32,7 +33,7 @@ const createScene = async function() {
     const shadowGenerator = new BABYLON.ShadowGenerator(1024, light2);
 
     // STEP 10: Soften the edges of the shadows a bit
-    
+    shadowGenerator.usePoissonSampling = true;
 
 
     /* GROUND
